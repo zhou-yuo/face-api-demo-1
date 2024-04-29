@@ -265,287 +265,403 @@
     <!-- 镜像 -->
   </div>
   <script>
+    "use strict";
+
+    function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+    function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+    function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+    function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() { } function GeneratorFunction() { } function GeneratorFunctionPrototype() { } var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg; ;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg; else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+    function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+    function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+    function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
     new Vue({
       el: '#app',
       data: {
         width: 280,
         height: 280,
         actionShow: false,
-        deviceList: [], //设备列表
-        deviceId: window.localStorage.getItem(`deviceId`) || '', //设备id
-        isCameraOpen: false,//相机是否打开
-        inProgress: false, //是否正在录制
-        mediaRecorder: null, //录制器
-        mediaStreamTrack: null, //音频或视频流
-        blob: null, //录制的视频
-        ModelLoading: false,//模型加载中
-        detector: null, //识别模型
+        deviceList: [],
+        //设备列表
+        deviceId: window.localStorage.getItem("deviceId") || '',
+        //设备id
+        isCameraOpen: false,
+        //相机是否打开
+        inProgress: false,
+        //是否正在录制
+        mediaRecorder: null,
+        //录制器
+        mediaStreamTrack: null,
+        //音频或视频流
+        blob: null,
+        //录制的视频
+        ModelLoading: false,
+        //模型加载中
+        detector: null,
+        //识别模型
         rafId: null,
-        flipHorizontal: false,//镜像
+        flipHorizontal: false,
+        //镜像
         faceNullFrequency: 0,
-        isFarArr: [], //记录远近
-        isOpenMouthArr: [], //张嘴
-        isWinkArr: [], //眨眼
-        isShakingHisHeadArr: [], //摇头
-        actionList: [
-          {
-            name: "远一些",
-            value: 0,
-          },
-          {
-            name: "近一些",
-            value: 1,
-          },
-          {
-            name: "张嘴",
-            value: 2,
-          },
-          {
-            name: "眨眼",
-            value: 3,
-          },
-          {
-            name: "向左转头",
-            value: 4,
-          },
-          {
-            name: "向右转头",
-            value: 5,
-          },
-        ],//动作列表
-        currentAction: [],//当前动作
+        isFarArr: [],
+        //记录远近
+        isOpenMouthArr: [],
+        //张嘴
+        isWinkArr: [],
+        //眨眼
+        isShakingHisHeadArr: [],
+        //摇头
+        actionList: [{
+          name: "远一些",
+          value: 0
+        }, {
+          name: "近一些",
+          value: 1
+        }, {
+          name: "张嘴",
+          value: 2
+        }, {
+          name: "眨眼",
+          value: 3
+        }, {
+          name: "向左转头",
+          value: 4
+        }, {
+          name: "向右转头",
+          value: 5
+        }],
+        //动作列表
+        currentAction: [],
+        //当前动作
         currentRate: 0,
-        nextactionTime: 0,
+        nextactionTime: 0
       },
-      mounted() {
-        const size = (document.documentElement.clientWidth || window.innerWidth) * 0.6;
+      mounted: function mounted() {
+        var size = (document.documentElement.clientWidth || window.innerWidth) * 0.6;
         this.width = size > 280 ? 280 : size;
         this.height = size > 280 ? 280 : size;
 
         // 一堆兼容代码
         this.compatible();
         this.openUserMedia();
-
       },
-
       methods: {
-        isObjEmpty(obj) {
-          return (
-            obj === undefined ||
-            obj === "undefined" ||
-            obj == null ||
-            obj === "" ||
-            obj.length === 0 ||
-            (typeof obj === "object" && Object.keys(obj).length === 0)
-          );
+        isObjEmpty: function isObjEmpty(obj) {
+          return obj === undefined || obj === "undefined" || obj == null || obj === "" || obj.length === 0 || _typeof(obj) === "object" && Object.keys(obj).length === 0;
         },
-        async neuAufnehmen() {
-          await this.getUserMedia();
-          await this.createDetector();
-          await this.startMediaRecorder();
+        neuAufnehmen: function neuAufnehmen() {
+          var _this = this;
+          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+            return _regeneratorRuntime().wrap(function _callee$(_context) {
+              while (1) switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return _this.getUserMedia();
+                case 2:
+                  _context.next = 4;
+                  return _this.createDetector();
+                case 4:
+                  _context.next = 6;
+                  return _this.startMediaRecorder();
+                case 6:
+                case "end":
+                  return _context.stop();
+              }
+            }, _callee);
+          }))();
         },
         //打开摄像头
-        async openUserMedia() {
-          const isOpen = await this.getUserMedia();
-          if (isOpen.code == "ok") {
-            await this.createDetector();
-            vant.Toast(`摄像头已打开`);
-          } else {
-            vant.Dialog.alert({
-              title: '失败',
-              message: `打开摄像头失败：${isOpen.errMsg}`,
-              theme: 'round-button',
-            }).then(() => {
-              location.replace(`${location.pathname}?s=${new Date().getTime()}`)
-            });
-            return;
-          };
-        },
-        getUserMedia() {
-          return new Promise(async resolve => {
-            this.inProgress = false;
-            this.isCameraOpen = false;
-            this.blob = null;
-            const toast = vant.Toast.loading({
-              duration: 0, // 持续展示 toast
-              forbidClick: true,
-              message: '打开摄像头',
-            });
-            let mediaOpts = {
-              audio: false,
-              video: true,
-              video: {
-                width: this.width,
-                height: this.height,
-                frameRate: {
-                  ideal: 100,
-                  max: 150
-                } //最佳帧率
+        openUserMedia: function openUserMedia() {
+          var _this2 = this;
+          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+            var isOpen;
+            return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+              while (1) switch (_context2.prev = _context2.next) {
+                case 0:
+                  _context2.next = 2;
+                  return _this2.getUserMedia();
+                case 2:
+                  isOpen = _context2.sent;
+                  if (!(isOpen.code == "ok")) {
+                    _context2.next = 9;
+                    break;
+                  }
+                  _context2.next = 6;
+                  return _this2.createDetector();
+                case 6:
+                  vant.Toast("\u6444\u50CF\u5934\u5DF2\u6253\u5F00");
+                  _context2.next = 11;
+                  break;
+                case 9:
+                  vant.Dialog.alert({
+                    title: '失败',
+                    message: "\u6253\u5F00\u6444\u50CF\u5934\u5931\u8D25\uFF1A".concat(isOpen.errMsg),
+                    theme: 'round-button'
+                  }).then(function () {
+                    location.replace("".concat(location.pathname, "?s=").concat(new Date().getTime()));
+                  });
+                  return _context2.abrupt("return");
+                case 11:
+                  ;
+                case 12:
+                case "end":
+                  return _context2.stop();
               }
+            }, _callee2);
+          }))();
+        },
+        getUserMedia: function getUserMedia() {
+          var _this3 = this;
+          return new Promise( /*#__PURE__*/function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(resolve) {
+              var toast, mediaOpts, stream, video;
+              return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+                while (1) switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _this3.inProgress = false;
+                    _this3.isCameraOpen = false;
+                    _this3.blob = null;
+                    toast = vant.Toast.loading({
+                      duration: 0,
+                      // 持续展示 toast
+                      forbidClick: true,
+                      message: '打开摄像头'
+                    });
+                    mediaOpts = _defineProperty({
+                      audio: false,
+                      video: true
+                    }, "video", {
+                      width: _this3.width,
+                      height: _this3.height,
+                      frameRate: {
+                        ideal: 100,
+                        max: 150
+                      } //最佳帧率
+                    });
+
+                    if (_this3.isObjEmpty(_this3.deviceId)) {
+                      mediaOpts.video.facingMode = "user"; //前置摄像头
+                      // mediaOpts.video.facingMode = "environment"; //后置摄像头
+                    } else {
+                      mediaOpts.video.deviceId = _this3.deviceId;
+                    }
+                    _context3.prev = 6;
+                    _context3.next = 9;
+                    return navigator.mediaDevices.getUserMedia(mediaOpts);
+                  case 9:
+                    stream = _context3.sent;
+                    _this3.mediaStreamTrack = stream;
+                    //获取设备
+                    _context3.next = 13;
+                    return _this3.getDevice();
+                  case 13:
+                    _context3.t0 = _context3.sent;
+                    if (_context3.t0) {
+                      _context3.next = 16;
+                      break;
+                    }
+                    _context3.t0 = [];
+                  case 16:
+                    _this3.deviceList = _context3.t0;
+                    video = _this3.$refs['video'];
+                    video.pause();
+                    video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+                    if ("srcObject" in video) {
+                      video.srcObject = stream;
+                    } else {
+                      video.src = window.URL && window.URL.createObjectURL(stream) || stream;
+                    }
+                    ;
+                    video.play();
+                    video.onplay = function () {
+                      toast.clear();
+                      _this3.isCameraOpen = true;
+                      resolve({
+                        code: "ok"
+                      });
+                    };
+                    _context3.next = 31;
+                    break;
+                  case 26:
+                    _context3.prev = 26;
+                    _context3.t1 = _context3["catch"](6);
+                    toast.clear();
+                    console.error(_context3.t1);
+                    resolve({
+                      errMsg: _context3.t1
+                    });
+                  case 31:
+                  case "end":
+                    return _context3.stop();
+                }
+              }, _callee3, null, [[6, 26]]);
+            }));
+            return function (_x) {
+              return _ref.apply(this, arguments);
             };
-            if (this.isObjEmpty(this.deviceId)) {
-              mediaOpts.video.facingMode = "user"; //前置摄像头
-              // mediaOpts.video.facingMode = "environment"; //后置摄像头
-            } else {
-              mediaOpts.video.deviceId = this.deviceId;
-            }
-            try {
-              const stream = await navigator.mediaDevices.getUserMedia(mediaOpts);
-              this.mediaStreamTrack = stream;
-              //获取设备
-              this.deviceList = await this.getDevice() || [];
-              let video = this.$refs['video'];
-              video.pause();
-              video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-              if ("srcObject" in video) {
-                video.srcObject = stream
-              } else {
-                video.src = window.URL && window.URL.createObjectURL(stream) || stream
-              };
-              video.play();
-              video.onplay = () => {
-                toast.clear();
-                this.isCameraOpen = true;
-                resolve({ code: `ok` });
-              };
-            } catch (error) {
-              toast.clear();
-              console.error(error);
-              resolve({ errMsg: error })
-            }
-          })
+          }());
         },
-        startMediaRecorder() {
-          return new Promise(async resolve => {
-            if (typeof MediaRecorder === "function") {
-              this.isFarArr = []; //记录远近
-              this.isOpenMouthArr = []; //张嘴
-              this.isWinkArr = []; //眨眼
-              this.isShakingHisHeadArr = []; //摇头
-              this.inProgress = false;
-              const toast = vant.Toast.loading({
-                duration: 0, // 持续展示 toast
-                forbidClick: true,
-                message: '准备录制',
-              });
+        startMediaRecorder: function startMediaRecorder() {
+          var _this4 = this;
+          return new Promise( /*#__PURE__*/function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(resolve) {
+              var toast;
+              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+                while (1) switch (_context4.prev = _context4.next) {
+                  case 0:
+                    if (typeof MediaRecorder === "function") {
+                      _this4.isFarArr = []; //记录远近
+                      _this4.isOpenMouthArr = []; //张嘴
+                      _this4.isWinkArr = []; //眨眼
+                      _this4.isShakingHisHeadArr = []; //摇头
+                      _this4.inProgress = false;
+                      toast = vant.Toast.loading({
+                        duration: 0,
+                        // 持续展示 toast
+                        forbidClick: true,
+                        message: '准备录制'
+                      });
+                      _this4.mediaRecorder = new MediaRecorder(_this4.mediaStreamTrack, {
+                        audioBitsPerSecond: 0,
+                        //音频码率
+                        videoBitsPerSecond: 1000000 * 20 //视频码率 (数值越大视频越清晰)
+                        // mimeType: 'video/webm;codecs=h264' //视频编码格式
+                      });
 
-              this.mediaRecorder = new MediaRecorder(this.mediaStreamTrack, {
-                audioBitsPerSecond: 0, //音频码率
-                videoBitsPerSecond: 1000000 * 20, //视频码率 (数值越大视频越清晰)
-                // mimeType: 'video/webm;codecs=h264' //视频编码格式
-              });
-              this.mediaRecorder.start();
-              // this.mediaRecorder.resume();
-              this.mediaRecorder.ondataavailable = e => {
-                this.blob = new Blob([e.data], {
-                  'type': e.currentTarget.mimeType
-                });
-              }
-              this.mediaRecorder.onerror = e => {
-                this.inProgress = false;
-                console.error(e)
-                toast.clear();
-                resolve({ errMsg: e });
-              }
-              this.mediaRecorder.onstart = e => {
-                this.inProgress = true;
-                console.log('开始', e);
-                toast.clear();
-                vant.Toast(`开始录制`);
-                resolve({ code: `ok` });
-              }
-              this.mediaRecorder.onresume = e => {
-                this.inProgress = true;
-                console.log('恢复', e);
-                toast.clear();
-                resolve({ code: `ok` });
-              }
-              this.mediaRecorder.onstop = e => {
-                this.inProgress = false;
-                const saveFile = vant.Toast.loading({
-                  duration: 0, // 持续展示 toast
-                  forbidClick: true,
-                  message: '保存视频中',
-                });
-                console.log('结束', e);
-                const url = window.URL && window.URL.createObjectURL(this.blob);
-                vant.Dialog.confirm({
-                  title: '录制完成',
-                  message: `
-                                <video src="${url}#t=0.01" style="display: block;width: 100%;" webkit-playsinline="true" playsinline="true" controls autoplay></video>
-                                <div class="van-cell van-cell--center">
-                                    <div class="van-cell__title" style="text-align: left;">
-                                        <span>文件大小</span>
-                                    </div>
-                                    <div class="van-cell__value">
-                                        <span>${(this.blob.size / 1024).toFixed(2)}kb</span>
-                                    </div>
-                                </div>
-                            `,
-                  theme: 'round-button',
-                  className: 'videoDialog',
-                  confirmButtonText: '上传'
-                })
-                  .then(() => {
-                    vant.Toast(`上传成功！`);
-                  })
-                saveFile.clear();
-              }
-
-            } else {
-              vant.Dialog.alert({
-                title: '失败',
-                message: `录制失败：浏览器不支持new MediaRecorder方法`,
-                theme: 'round-button',
-              }).then(() => {
-                // location.replace(`${location.pathname}?s=${new Date().getTime()}`)
-              });
-            }
-          })
+                      _this4.mediaRecorder.start();
+                      // this.mediaRecorder.resume();
+                      _this4.mediaRecorder.ondataavailable = function (e) {
+                        _this4.blob = new Blob([e.data], {
+                          'type': e.currentTarget.mimeType
+                        });
+                      };
+                      _this4.mediaRecorder.onerror = function (e) {
+                        _this4.inProgress = false;
+                        console.error(e);
+                        toast.clear();
+                        resolve({
+                          errMsg: e
+                        });
+                      };
+                      _this4.mediaRecorder.onstart = function (e) {
+                        _this4.inProgress = true;
+                        console.log('开始', e);
+                        toast.clear();
+                        vant.Toast("\u5F00\u59CB\u5F55\u5236");
+                        resolve({
+                          code: "ok"
+                        });
+                      };
+                      _this4.mediaRecorder.onresume = function (e) {
+                        _this4.inProgress = true;
+                        console.log('恢复', e);
+                        toast.clear();
+                        resolve({
+                          code: "ok"
+                        });
+                      };
+                      _this4.mediaRecorder.onstop = function (e) {
+                        _this4.inProgress = false;
+                        var saveFile = vant.Toast.loading({
+                          duration: 0,
+                          // 持续展示 toast
+                          forbidClick: true,
+                          message: '保存视频中'
+                        });
+                        console.log('结束', e);
+                        var url = window.URL && window.URL.createObjectURL(_this4.blob);
+                        vant.Dialog.confirm({
+                          title: '录制完成',
+                          message: "\n                                <video src=\"".concat(url, "#t=0.01\" style=\"display: block;width: 100%;\" webkit-playsinline=\"true\" playsinline=\"true\" controls autoplay></video>\n                                <div class=\"van-cell van-cell--center\">\n                                    <div class=\"van-cell__title\" style=\"text-align: left;\">\n                                        <span>\u6587\u4EF6\u5927\u5C0F</span>\n                                    </div>\n                                    <div class=\"van-cell__value\">\n                                        <span>").concat((_this4.blob.size / 1024).toFixed(2), "kb</span>\n                                    </div>\n                                </div>\n                            "),
+                          theme: 'round-button',
+                          className: 'videoDialog',
+                          confirmButtonText: '上传'
+                        }).then(function () {
+                          vant.Toast("\u4E0A\u4F20\u6210\u529F\uFF01");
+                        });
+                        saveFile.clear();
+                      };
+                    } else {
+                      vant.Dialog.alert({
+                        title: '失败',
+                        message: "\u5F55\u5236\u5931\u8D25\uFF1A\u6D4F\u89C8\u5668\u4E0D\u652F\u6301new MediaRecorder\u65B9\u6CD5",
+                        theme: 'round-button'
+                      }).then(function () {
+                        // location.replace(`${location.pathname}?s=${new Date().getTime()}`)
+                      });
+                    }
+                  case 1:
+                  case "end":
+                    return _context4.stop();
+                }
+              }, _callee4);
+            }));
+            return function (_x2) {
+              return _ref2.apply(this, arguments);
+            };
+          }());
         },
-        async StopMediaRecorder() {
-          this.inProgress = false;
-          this.isCameraOpen = false;
-          const toast = vant.Toast.loading({
-            duration: 0, // 持续展示 toast
-            forbidClick: true,
-            message: '已完成！保存视频中',
-          });
-          await this.delay(5); //所有动作结束以后 延迟五秒关闭录制。
-          this.mediaStreamTrack.getVideoTracks().forEach(track => {
-            track.stop();
-          })
-          this.mediaRecorder && this.mediaRecorder.stop();
-          toast.clear();
+        StopMediaRecorder: function StopMediaRecorder() {
+          var _this5 = this;
+          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+            var toast;
+            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+              while (1) switch (_context5.prev = _context5.next) {
+                case 0:
+                  _this5.inProgress = false;
+                  _this5.isCameraOpen = false;
+                  toast = vant.Toast.loading({
+                    duration: 0,
+                    // 持续展示 toast
+                    forbidClick: true,
+                    message: '已完成！保存视频中'
+                  });
+                  _context5.next = 5;
+                  return _this5.delay(5);
+                case 5:
+                  //所有动作结束以后 延迟五秒关闭录制。
+                  _this5.mediaStreamTrack.getVideoTracks().forEach(function (track) {
+                    track.stop();
+                  });
+                  _this5.mediaRecorder && _this5.mediaRecorder.stop();
+                  toast.clear();
+                case 8:
+                case "end":
+                  return _context5.stop();
+              }
+            }, _callee5);
+          }))();
         },
         //镜像切换
-        triggerToggleFlipHorizontal() {
+        triggerToggleFlipHorizontal: function triggerToggleFlipHorizontal() {
           this.flipHorizontal = !this.flipHorizontal;
           var video = this.$refs['video'];
           if (this.flipHorizontal) {
             video.style.transform = 'scale(-1, 1)';
           } else {
             video.style.transform = 'scale(1, 1)';
-          };
+          }
+          ;
           this.createDetector();
         },
         //随机生成动作
-        generateAction() {
+        generateAction: function generateAction() {
           this.$refs.actionSwipe.swipeTo(0);
           this.currentRate = 0;
-          this.currentAction = this.actionList.map(e => {
+          this.currentAction = this.actionList.map(function (e) {
             e.complete = false;
             e.time = 0;
-            return e
-          }).sort(_ => Math.random() > 0.5 ? -1 : 1);
+            return e;
+          }).sort(function (_) {
+            return Math.random() > 0.5 ? -1 : 1;
+          });
           console.log(this.currentAction);
         },
         //显示当前动作
-        showCurrentAction() {
-          let name = '';
-          const array = this.currentAction;
-          for (let index = 0; index < array.length; index++) {
-            const element = array[index];
+        showCurrentAction: function showCurrentAction() {
+          var name = '';
+          var array = this.currentAction;
+          for (var index = 0; index < array.length; index++) {
+            var element = array[index];
             if (element.complete === false) {
               name = element.name;
               break;
@@ -554,227 +670,284 @@
           return name;
         },
         //触发动作
-        triggerAction(actionValue) {
+        triggerAction: function triggerAction(actionValue) {
           if (this.isCameraOpen && this.inProgress) {
-            let index = this.currentAction.findIndex(e => !e.complete);
-            let findObj = this.currentAction.find(e => !e.complete) || {};
-
-            let deffTime = new Date().getTime() - this.nextactionTime;
+            var index = this.currentAction.findIndex(function (e) {
+              return !e.complete;
+            });
+            var findObj = this.currentAction.find(function (e) {
+              return !e.complete;
+            }) || {};
+            var deffTime = new Date().getTime() - this.nextactionTime;
             //两个动作间隔3s
             if (findObj.value === actionValue && deffTime >= 3000) {
               this.nextactionTime = new Date().getTime();
               findObj.complete = true;
               this.$set(this.currentAction, index, findObj);
-              const num = (this.currentAction.filter(e => e.complete)).length;
+              var num = this.currentAction.filter(function (e) {
+                return e.complete;
+              }).length;
               this.currentRate = this.GetPercent(num, this.currentAction.length);
               this.$refs.actionSwipe.next();
-            };
-            let isComplete = this.currentAction.every(e => e.complete === true);
+            }
+            ;
+            var isComplete = this.currentAction.every(function (e) {
+              return e.complete === true;
+            });
             if (isComplete) {
               this.StopMediaRecorder();
             }
           }
         },
         //创建识别模型
-        async createDetector() {
-          return new Promise(async resolve => {
-            this.generateAction(); //生成模型
-            const toast = vant.Toast.loading({
-              duration: 0, // 持续展示 toast
-              forbidClick: true,
-              message: '加载模型中（首次加载需要1-2分钟）',
-            });
-            this.ModelLoading = true;
-            try {
-              if (!this.isObjEmpty(this.detector)) {
-                this.detector.dispose();
-              };
-              if (!this.isObjEmpty(this.rafId)) {
-                window.cancelAnimationFrame(this.rafId);
-                this.rafId = null;
-              };
-              const model = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
-              const detectorConfig = {
-                maxFaces: 1, //检测到的最大面部数量
-                refineLandmarks: true, //可以完善眼睛和嘴唇周围的地标坐标，并在虹膜周围输出其他地标
-                runtime: 'mediapipe',
-                solutionPath: 'https://unpkg.com/@mediapipe/face_mesh', //WASM二进制文件和模型文件所在的路径
-              };
-              this.detector = await faceLandmarksDetection.createDetector(model, detectorConfig);
-
-              toast.clear();
-              this.rafId = window.requestAnimationFrame(this.renderPrediction);
-              resolve({ code: `ok` });
-            } catch (error) {
-              toast.clear();
-              this.ModelLoading = false;
-              // vant.Dialog.alert({
-              //     title: '失败',
-              //     message: `创建识别模型失败-${error}`,
-              //     theme: 'round-button',
-              // }).then(() => {
-              //     location.replace(`${location.pathname}?s=${new Date().getTime()}`)
-              // });
-              this.detector = null;
-              console.log(error);
-              resolve({ errMsg: error });
-            }
-          })
-        },
-
-        //预测
-        async renderPrediction() {
-          var video = this.$refs['video'];
-          var canvas = this.$refs['canvas'];
-          var context = canvas.getContext('2d');
-          if (this.detector && this.isCameraOpen) {
-            try {
-              context.clearRect(0, 0, canvas.width, canvas.height);
-              const Faces = await this.detector.estimateFaces(video, {
-                flipHorizontal: this.flipHorizontal, //镜像
-              });
-
-              this.ModelLoading = false;
-              if (Faces.length > 0) {
-                this.faceNullFrequency = 0;
-                this.drawResults(Faces, context);
-              } else {
-                this.faceNullFrequency++;
-                //连续5帧没有检测到人脸提示
-                if (this.faceNullFrequency >= 5) {
-                  vant.Toast(`没有检测到人脸`);
-                }
+        createDetector: function createDetector() {
+          var _this6 = this;
+          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+              while (1) switch (_context7.prev = _context7.next) {
+                case 0:
+                  return _context7.abrupt("return", new Promise( /*#__PURE__*/function () {
+                    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(resolve) {
+                      var toast, model, detectorConfig;
+                      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+                        while (1) switch (_context6.prev = _context6.next) {
+                          case 0:
+                            _this6.generateAction(); //生成模型
+                            toast = vant.Toast.loading({
+                              duration: 0,
+                              // 持续展示 toast
+                              forbidClick: true,
+                              message: '加载模型中（首次加载需要1-2分钟）'
+                            });
+                            _this6.ModelLoading = true;
+                            _context6.prev = 3;
+                            if (!_this6.isObjEmpty(_this6.detector)) {
+                              _this6.detector.dispose();
+                            }
+                            ;
+                            if (!_this6.isObjEmpty(_this6.rafId)) {
+                              window.cancelAnimationFrame(_this6.rafId);
+                              _this6.rafId = null;
+                            }
+                            ;
+                            model = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
+                            detectorConfig = {
+                              maxFaces: 1,
+                              //检测到的最大面部数量
+                              refineLandmarks: true,
+                              //可以完善眼睛和嘴唇周围的地标坐标，并在虹膜周围输出其他地标
+                              runtime: 'mediapipe',
+                              solutionPath: 'https://unpkg.com/@mediapipe/face_mesh' //WASM二进制文件和模型文件所在的路径
+                            };
+                            _context6.next = 12;
+                            return faceLandmarksDetection.createDetector(model, detectorConfig);
+                          case 12:
+                            _this6.detector = _context6.sent;
+                            toast.clear();
+                            _this6.rafId = window.requestAnimationFrame(_this6.renderPrediction);
+                            resolve({
+                              code: "ok"
+                            });
+                            _context6.next = 25;
+                            break;
+                          case 18:
+                            _context6.prev = 18;
+                            _context6.t0 = _context6["catch"](3);
+                            toast.clear();
+                            _this6.ModelLoading = false;
+                            // vant.Dialog.alert({
+                            //     title: '失败',
+                            //     message: `创建识别模型失败-${error}`,
+                            //     theme: 'round-button',
+                            // }).then(() => {
+                            //     location.replace(`${location.pathname}?s=${new Date().getTime()}`)
+                            // });
+                            _this6.detector = null;
+                            console.log(_context6.t0);
+                            resolve({
+                              errMsg: _context6.t0
+                            });
+                          case 25:
+                          case "end":
+                            return _context6.stop();
+                        }
+                      }, _callee6, null, [[3, 18]]);
+                    }));
+                    return function (_x3) {
+                      return _ref3.apply(this, arguments);
+                    };
+                  }()));
+                case 1:
+                case "end":
+                  return _context7.stop();
               }
-            } catch (error) {
-              this.createDetector();
-              this.ModelLoading = false;
-              vant.Toast(`预测-${error}`);
-              console.log(error);
-              context.clearRect(0, 0, canvas.width, canvas.height);
-            }
-            this.rafId = window.requestAnimationFrame(this.renderPrediction);
-          } else {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            this.rafId = window.requestAnimationFrame(this.renderPrediction);
-          }
+            }, _callee7);
+          }))();
+        },
+        //预测
+        renderPrediction: function renderPrediction() {
+          var _this7 = this;
+          return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+            var video, canvas, context, Faces;
+            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+              while (1) switch (_context8.prev = _context8.next) {
+                case 0:
+                  video = _this7.$refs['video'];
+                  canvas = _this7.$refs['canvas'];
+                  context = canvas.getContext('2d');
+                  if (!(_this7.detector && _this7.isCameraOpen)) {
+                    _context8.next = 23;
+                    break;
+                  }
+                  _context8.prev = 4;
+                  context.clearRect(0, 0, canvas.width, canvas.height);
+                  _context8.next = 8;
+                  return _this7.detector.estimateFaces(video, {
+                    flipHorizontal: _this7.flipHorizontal //镜像
+                  });
+                case 8:
+                  Faces = _context8.sent;
+                  _this7.ModelLoading = false;
+                  if (Faces.length > 0) {
+                    _this7.faceNullFrequency = 0;
+                    _this7.drawResults(Faces, context);
+                  } else {
+                    _this7.faceNullFrequency++;
+                    //连续5帧没有检测到人脸提示
+                    if (_this7.faceNullFrequency >= 5) {
+                      vant.Toast("\u6CA1\u6709\u68C0\u6D4B\u5230\u4EBA\u8138");
+                    }
+                  }
+                  _context8.next = 20;
+                  break;
+                case 13:
+                  _context8.prev = 13;
+                  _context8.t0 = _context8["catch"](4);
+                  _this7.createDetector();
+                  _this7.ModelLoading = false;
+                  vant.Toast("\u9884\u6D4B-".concat(_context8.t0));
+                  console.log(_context8.t0);
+                  context.clearRect(0, 0, canvas.width, canvas.height);
+                case 20:
+                  _this7.rafId = window.requestAnimationFrame(_this7.renderPrediction);
+                  _context8.next = 25;
+                  break;
+                case 23:
+                  context.clearRect(0, 0, canvas.width, canvas.height);
+                  _this7.rafId = window.requestAnimationFrame(_this7.renderPrediction);
+                case 25:
+                case "end":
+                  return _context8.stop();
+              }
+            }, _callee8, null, [[4, 13]]);
+          }))();
         },
         //绘制
-        drawResults(faces, ctx) {
-          faces.forEach(faceItem => {
+        drawResults: function drawResults(faces, ctx) {
+          var _this8 = this;
+          faces.forEach(function (faceItem) {
             ctx.fillStyle = '#1af117';
-            (faceItem.keypoints || []).forEach((element, index) => {
+            (faceItem.keypoints || []).forEach(function (element, index) {
               /* arc */
               ctx.beginPath();
               ctx.arc(element.x, element.y, 1, 0, 2 * Math.PI);
               ctx.fill();
               /* arc */
             });
-            const faceProportion = this.GetPercent(faceItem.box.width * faceItem.box.height, this.width * this.height);
-            this.$refs['faceProportion'].innerHTML = `10-50之间,当前距离:<b>${Math.round(faceProportion)}</b>`;
 
+            var faceProportion = _this8.GetPercent(faceItem.box.width * faceItem.box.height, _this8.width * _this8.height);
+            _this8.$refs['faceProportion'].innerHTML = "10-50\u4E4B\u95F4,\u5F53\u524D\u8DDD\u79BB:<b>".concat(Math.round(faceProportion), "</b>");
             if (faceProportion <= 10) {
-              vant.Toast(`距离太远`);
+              vant.Toast("\u8DDD\u79BB\u592A\u8FDC");
               return;
-            };
+            }
+            ;
             if (faceProportion >= 50) {
-              vant.Toast(`距离太近`);
+              vant.Toast("\u8DDD\u79BB\u592A\u8FD1");
               return;
-            };
-            if (this.isCameraOpen && this.inProgress) {
+            }
+            ;
+            if (_this8.isCameraOpen && _this8.inProgress) {
               //靠近&远离
-              this.isFarAndNear(faceItem);
+              _this8.isFarAndNear(faceItem);
 
               //张嘴
-              this.isOpenMouth(faceItem, ctx);
+              _this8.isOpenMouth(faceItem, ctx);
 
               //眨眼
-              this.isWink(faceItem, ctx);
+              _this8.isWink(faceItem, ctx);
 
               //摇头
-              this.isShakingHisHead(faceItem, ctx);
+              _this8.isShakingHisHead(faceItem, ctx);
             }
           });
         },
-
         //靠近&远离
-        isFarAndNear(face) {
-          const proportion = this.GetPercent(face.box.width * face.box.height, this.width * this.height);
+        isFarAndNear: function isFarAndNear(face) {
+          var proportion = this.GetPercent(face.box.width * face.box.height, this.width * this.height);
           this.isFarArr.push(proportion);
           //计算4帧的动态变化
           if (this.isFarArr.length > 4) {
             this.isFarArr.shift();
             if (this.Increment(this.isFarArr) || this.Decrease(this.isFarArr)) {
-              const first = this.isFarArr[0];
-              const last = this.isFarArr[this.isFarArr.length - 1];
-              const diff = this.GetPercent(first - last, first + last);
+              var first = this.isFarArr[0];
+              var last = this.isFarArr[this.isFarArr.length - 1];
+              var diff = this.GetPercent(first - last, first + last);
               if (diff <= -5) {
                 // this.log(`【动作】靠近`, `info`);
                 this.triggerAction(1);
-              };
+              }
+              ;
               if (diff >= 5) {
                 // this.log(`【动作】远离`, `primary`);
                 this.triggerAction(0);
-              };
+              }
+              ;
             }
-          };
+          }
+          ;
         },
         //张嘴
-        isOpenMouth(face, ctx) {
-
-          const featureIndex1 = [0, 17];
-          const featureLocation1 = [];
-
-          const featureIndex2 = [10, 152];
-          const featureLocation2 = [];
-
-          (face.keypoints || []).forEach((element, index) => {
+        isOpenMouth: function isOpenMouth(face, ctx) {
+          var featureIndex1 = [0, 17];
+          var featureLocation1 = [];
+          var featureIndex2 = [10, 152];
+          var featureLocation2 = [];
+          (face.keypoints || []).forEach(function (element, index) {
             if (featureIndex1.includes(index)) {
-              featureLocation1.push([element.x, element.y])
+              featureLocation1.push([element.x, element.y]);
             }
             if (featureIndex2.includes(index)) {
-              featureLocation2.push([element.x, element.y])
+              featureLocation2.push([element.x, element.y]);
             }
           });
 
           // 10,152占0,17的比例
-          const proportion = this.GetPercent(this.getDistance(
-            featureLocation1[0][0],
-            featureLocation1[0][1],
-            featureLocation1[1][0],
-            featureLocation1[1][1],
-          ), this.getDistance(
-            featureLocation2[0][0],
-            featureLocation2[0][1],
-            featureLocation2[1][0],
-            featureLocation2[1][1],
-          ));
+          var proportion = this.GetPercent(this.getDistance(featureLocation1[0][0], featureLocation1[0][1], featureLocation1[1][0], featureLocation1[1][1]), this.getDistance(featureLocation2[0][0], featureLocation2[0][1], featureLocation2[1][0], featureLocation2[1][1]));
           this.isOpenMouthArr.push(proportion);
 
           //计算2帧的动态变化
           if (this.isOpenMouthArr.length > 2) {
             this.isOpenMouthArr.shift();
             if (this.Increment(this.isOpenMouthArr)) {
-              const first = this.isOpenMouthArr[0];
-              const last = this.isOpenMouthArr[this.isOpenMouthArr.length - 1];
-              const diff = this.GetPercent(first - last, first + last);
+              var first = this.isOpenMouthArr[0];
+              var last = this.isOpenMouthArr[this.isOpenMouthArr.length - 1];
+              var diff = this.GetPercent(first - last, first + last);
               if (diff <= -5) {
                 // this.log(`【动作】张嘴`, `info`);
                 this.triggerAction(2);
-              };
+              }
+              ;
             }
           }
-
         },
         //眨眼
-        isWink(face, ctx) {
-
-          const leftEye = [159, 144];
-          const leftEyeLocation = [];
-          const rightEye = [385, 374];
-          const rightEyeLocation = [];
-
-
-          (face.keypoints || []).forEach((element, index) => {
+        isWink: function isWink(face, ctx) {
+          var leftEye = [159, 144];
+          var leftEyeLocation = [];
+          var rightEye = [385, 374];
+          var rightEyeLocation = [];
+          (face.keypoints || []).forEach(function (element, index) {
             if (leftEye.includes(index)) {
               leftEyeLocation.push([element.x, element.y]);
             }
@@ -782,22 +955,8 @@
               rightEyeLocation.push([element.x, element.y]);
             }
           });
-
-          let leftProportion = this.getDistance(
-            leftEyeLocation[0][0],
-            leftEyeLocation[0][1],
-            leftEyeLocation[1][0],
-            leftEyeLocation[1][1],
-          );
-          let rightProportion = this.getDistance(
-            rightEyeLocation[0][0],
-            rightEyeLocation[0][1],
-            rightEyeLocation[1][0],
-            rightEyeLocation[1][1],
-          );
-
-
-
+          var leftProportion = this.getDistance(leftEyeLocation[0][0], leftEyeLocation[0][1], leftEyeLocation[1][0], leftEyeLocation[1][1]);
+          var rightProportion = this.getDistance(rightEyeLocation[0][0], rightEyeLocation[0][1], rightEyeLocation[1][0], rightEyeLocation[1][1]);
           if (leftProportion <= 5 || rightProportion <= 5) {
             this.isWinkArr.push([leftProportion, rightProportion]);
             //连续4帧一次
@@ -811,47 +970,38 @@
           }
         },
         //isShakingHisHead
-        isShakingHisHead(face, ctx) {
-          const leftFace = [195, 93];
-          const leftFaceLocation = [];
-          const rightFace = [195, 323];
-          const rightFaceLocation = [];
-
-          (face.keypoints || []).forEach((element, index) => {
+        isShakingHisHead: function isShakingHisHead(face, ctx) {
+          var leftFace = [195, 93];
+          var leftFaceLocation = [];
+          var rightFace = [195, 323];
+          var rightFaceLocation = [];
+          (face.keypoints || []).forEach(function (element, index) {
             if (leftFace.includes(index)) {
               leftFaceLocation.push([element.x, element.y]);
             }
             if (rightFace.includes(index)) {
               if (rightFaceLocation.length === 0) {
-                ctx.moveTo(element.x, element.y)
+                ctx.moveTo(element.x, element.y);
               } else {
-                ctx.lineTo(element.x, element.y)
+                ctx.lineTo(element.x, element.y);
               }
               rightFaceLocation.push([element.x, element.y]);
-
             }
           });
-          let leftProportion = this.getDistance(
-            leftFaceLocation[0][0],
-            leftFaceLocation[0][1],
-            leftFaceLocation[1][0],
-            leftFaceLocation[1][1],
-          );
-          let rightProportion = this.getDistance(
-            rightFaceLocation[0][0],
-            rightFaceLocation[0][1],
-            rightFaceLocation[1][0],
-            rightFaceLocation[1][1],
-          );
-
-          const diff = this.GetPercent(leftProportion - rightProportion, leftProportion + rightProportion);
+          var leftProportion = this.getDistance(leftFaceLocation[0][0], leftFaceLocation[0][1], leftFaceLocation[1][0], leftFaceLocation[1][1]);
+          var rightProportion = this.getDistance(rightFaceLocation[0][0], rightFaceLocation[0][1], rightFaceLocation[1][0], rightFaceLocation[1][1]);
+          var diff = this.GetPercent(leftProportion - rightProportion, leftProportion + rightProportion);
           this.isShakingHisHeadArr.push(diff); //左 -40 右 40
 
           //计算4帧的动态变化
           if (this.isShakingHisHeadArr.length > 4) {
             this.isShakingHisHeadArr.shift();
-            const isL = this.isShakingHisHeadArr.every(e => e >= -60);
-            const isR = this.isShakingHisHeadArr.every(e => e <= 60);
+            var isL = this.isShakingHisHeadArr.every(function (e) {
+              return e >= -60;
+            });
+            var isR = this.isShakingHisHeadArr.every(function (e) {
+              return e <= 60;
+            });
             if (isL) {
               // this.log(`【动作】向左转`, `info`);
               this.triggerAction(4);
@@ -860,69 +1010,93 @@
               // this.log(`【动作】向右转`, `info`);
               this.triggerAction(5);
             }
-          };
+          }
+          ;
           // console.log(diff);
         },
-        actionSelect(value) {
-          const { deviceId } = value;
+        actionSelect: function actionSelect(value) {
+          var deviceId = value.deviceId;
           this.actionShow = false;
           if (!this.isObjEmpty(deviceId) && this.deviceId != deviceId) {
             this.deviceId = deviceId;
-            window.localStorage.setItem(`deviceId`, deviceId);
+            window.localStorage.setItem("deviceId", deviceId);
             this.openUserMedia();
           }
-
         },
         //获取设备信息
-        getDevice() {
-          return new Promise(async resolve => {
-            const toast = vant.Toast.loading({
-              duration: 0, // 持续展示 toast
-              forbidClick: true,
-              message: '获取设备中',
-            });
-            try {
-              const devicesList = await navigator.mediaDevices.enumerateDevices();
-              const arr = [];
-              (devicesList || []).forEach(e => {
-                e.name = e.label || e.deviceId;
-                if (e.kind === "videoinput" && e.deviceId && !e.name.includes('麦克风')) {
-                  e.color = e.deviceId == this.deviceId ? '#1989fa' : '#323233';
-                  arr.push(e)
+        getDevice: function getDevice() {
+          var _this9 = this;
+          return new Promise( /*#__PURE__*/function () {
+            var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(resolve) {
+              var toast, devicesList, arr;
+              return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+                while (1) switch (_context9.prev = _context9.next) {
+                  case 0:
+                    toast = vant.Toast.loading({
+                      duration: 0,
+                      // 持续展示 toast
+                      forbidClick: true,
+                      message: '获取设备中'
+                    });
+                    _context9.prev = 1;
+                    _context9.next = 4;
+                    return navigator.mediaDevices.enumerateDevices();
+                  case 4:
+                    devicesList = _context9.sent;
+                    arr = [];
+                    (devicesList || []).forEach(function (e) {
+                      e.name = e.label || e.deviceId;
+                      if (e.kind === "videoinput" && e.deviceId && !e.name.includes('麦克风')) {
+                        e.color = e.deviceId == _this9.deviceId ? '#1989fa' : '#323233';
+                        arr.push(e);
+                      }
+                    });
+                    toast.clear();
+                    console.log(arr);
+                    resolve(arr);
+                    _context9.next = 17;
+                    break;
+                  case 12:
+                    _context9.prev = 12;
+                    _context9.t0 = _context9["catch"](1);
+                    toast.clear();
+                    console.log(_context9.t0);
+                    resolve([]);
+                  case 17:
+                    ;
+                  case 18:
+                  case "end":
+                    return _context9.stop();
                 }
-              });
-              toast.clear();
-              console.log(arr);
-              resolve(arr);
-            } catch (error) {
-              toast.clear();
-              console.log(error);
-              resolve([]);
+              }, _callee9, null, [[1, 12]]);
+            }));
+            return function (_x4) {
+              return _ref4.apply(this, arguments);
             };
-          })
+          }());
         },
         // 一堆兼容代码
-        compatible() {
-          window.URL = (window.URL || window.webkitURL || window.mozURL || window.msURL);
+        compatible: function compatible() {
+          window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
           if (navigator.mediaDevices === undefined) {
             navigator.mediaDevices = {};
           }
           if (navigator.mediaDevices.getUserMedia === undefined) {
-            navigator.mediaDevices.getUserMedia = (constraints) => {
+            navigator.mediaDevices.getUserMedia = function (constraints) {
               var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
               if (!getUserMedia) {
                 return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
               }
-              return new Promise((resolve, reject) => {
+              return new Promise(function (resolve, reject) {
                 getUserMedia.call(navigator, constraints, resolve, reject);
               });
-            }
+            };
           }
         },
         //递增
-        Increment(array) {
-          let is = true;
-          for (let i = 0; i < array.length - 1; i++) {
+        Increment: function Increment(array) {
+          var is = true;
+          for (var i = 0; i < array.length - 1; i++) {
             var n1 = array[i];
             var n2 = array[i + 1];
             if (n1 > n2) {
@@ -930,12 +1104,13 @@
               break;
             }
           }
-          return array.length > 1 ? is : false
+          return array.length > 1 ? is : false;
         },
         //递减
-        Decrease(array = []) {
-          let is = true;
-          for (let i = 0; i < array.length - 1; i++) {
+        Decrease: function Decrease() {
+          var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+          var is = true;
+          for (var i = 0; i < array.length - 1; i++) {
             var n1 = array[i];
             var n2 = array[i + 1];
             if (n1 < n2) {
@@ -943,11 +1118,10 @@
               break;
             }
           }
-          return array.length > 1 ? is : false
+          return array.length > 1 ? is : false;
         },
-
         //距离
-        getDistance(x1, y1, x2, y2) {
+        getDistance: function getDistance(x1, y1, x2, y2) {
           return Math.sqrt((x2 -= x1) * x2 + (y2 -= y1) * y2);
         },
         /**
@@ -955,36 +1129,37 @@
          * @ num 当前数
          * @ total 总数
          */
-        GetPercent(num, total) {
+        GetPercent: function GetPercent(num, total) {
           num = parseFloat(num);
           total = parseFloat(total);
           if (isNaN(num) || isNaN(total)) {
             return "-";
           }
-          return total <= 0 ? 0 : (Math.round(num / total * 10000) / 100.00);
+          return total <= 0 ? 0 : Math.round(num / total * 10000) / 100.00;
         },
         /**
          * 毫秒数的可读格式
          */
-        formatDuration(time) {
-          let h = parseInt(time / 60 / 60 % 24)
-          h = h < 10 ? '0' + h : h
-          let m = parseInt(time / 60 % 60)
-          m = m < 10 ? '0' + m : m
-          let s = parseInt(time % 60)
-          s = s < 10 ? '0' + s : s
+        formatDuration: function formatDuration(time) {
+          var h = parseInt(time / 60 / 60 % 24);
+          h = h < 10 ? '0' + h : h;
+          var m = parseInt(time / 60 % 60);
+          m = m < 10 ? '0' + m : m;
+          var s = parseInt(time % 60);
+          s = s < 10 ? '0' + s : s;
           // 作为返回值返回
-          return h === "00" ? [m, s].join(':') : [h, m, s].join(':')
+          return h === "00" ? [m, s].join(':') : [h, m, s].join(':');
         },
         //延迟
-        delay(m = 1) {
-          return new Promise(res => {
-            setTimeout(() => {
+        delay: function delay() {
+          var m = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+          return new Promise(function (res) {
+            setTimeout(function () {
               res(true);
             }, m * 1000);
-          })
-        },
-      },
+          });
+        }
+      }
     });
   </script>
 </body>
