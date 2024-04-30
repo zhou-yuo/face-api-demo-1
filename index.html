@@ -16,6 +16,7 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/tensorflow/3.19.0/tf.min.js"></script>
   <script src="https://unpkg.com/@mediapipe/face_mesh"></script>
   <script src="https://unpkg.com/@tensorflow-models/face-landmarks-detection"></script>
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/vant/2.12.25/index.min.css">
   <style>
     * {
       padding: 0;
@@ -347,6 +348,8 @@
         //打开摄像头
         async openUserMedia() {
           const isOpen = await this.getUserMedia();
+          console.log("🚀 ~ openUserMedia ~ isOpen:", isOpen)
+          
           if (isOpen.code == "ok") {
             await this.createDetector();
             vant.Toast(`摄像头已打开`);
@@ -373,27 +376,15 @@
             });
             let mediaOpts = {
               audio: false,
+              video: true,
               video: {
-                /**ideal（应用最理想的） */
-                width: {
-                  min: 320,
-                  ideal: 720,
-                  max: 1280,
-                },
-                height: {
-                  min: 200,
-                  ideal: 480,
-                  max: 720,
-                },
-                /**frameRate 受限带宽传输时，低帧率可能更适宜 */
+                width: this.width,
+                height: this.height,
                 frameRate: {
-                  min: 7,
-                  ideal: 15,
-                  max: 30,
-                },
-                /**facingMode 摄像头前后切换 */
-                facingMode: "user", // user environment
-              },
+                  ideal: 100,
+                  max: 150
+                } //最佳帧率
+              }
             };
             if (this.isObjEmpty(this.deviceId)) {
               mediaOpts.video.facingMode = "user"; //前置摄像头
@@ -407,22 +398,23 @@
               this.mediaStreamTrack = stream;
               //获取设备
               this.deviceList = await this.getDevice() || [];
+              console.log("🚀 ~ getUserMedia ~ this.deviceList:", this.deviceList)
               let video = this.$refs['video'];
-              console.log("🚀 ~ getUserMedia ~ video:", video)
               video.pause();
               video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-              console.log("🚀 ~ getUserMedia ~ srcObject in video:", "srcObject" in video)
               if ("srcObject" in video) {
                 video.srcObject = stream
               } else {
                 video.src = window.URL && window.URL.createObjectURL(stream) || stream
               };
+              video.play();
+              console.log("🚀 ~ getUserMedia ~ video", video)
+
               video.onplay = () => {
                 toast.clear();
                 this.isCameraOpen = true;
                 resolve({ code: `ok` });
               };
-              video.play();
             } catch (error) {
               toast.clear();
               console.error(error);
